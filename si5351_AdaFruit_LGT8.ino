@@ -20,18 +20,13 @@ void setup(void)
   /* FRACTIONAL MODE --> More flexible but introduce clock jitter */
 
   // нужно 640 kHz
-  clockgen.setupPLL(SI5351_PLL_A, 24, 0, 1); // XTAL * (24 + 0/1) = 600 MHz (XTAL = 25 MHz)
-  //clockgen.setupMultisynth(0, SI5351_PLL_A, 800, 275, 2); // PLLB/(800 + 275/2) = 600'000 / (937.5) = 640 kHz
-  // по факту = 640.064 кГц, значит нужно убавить 64 Гц: 640'000 - 64 = 639'936
-  clockgen.setupMultisynth(0, SI5351_PLL_A, 800, 275.187518, 2); // PLLB/(800 + 275.187518/2) = 600'000 / (937,593759) = 639'936 Hz
-  // по факту = 640.062 кГц
+  clockgen.setupPLL(SI5351_PLL_A, 35, 553, 625); // XTAL * (35 + 553/625) = 897.12 MHz ... (XTAL = 25 MHz)
+  clockgen.setupMultisynth(0, SI5351_PLL_A, 1401, 3, 4); // PLLA/(1401 + 3/4) = 897.12 / 1401.75 = 0.64 MHz
+  // по факту = 
 
   // нужно 1344 kHz
-  clockgen.setupPLL(SI5351_PLL_B, 24, 0, 1); // XTAL * (24 + 0/1) = 600 MHz (XTAL = 25 MHz)
-  //clockgen.setupMultisynth(1, SI5351_PLL_B, 445, 2.857142, 2); // PLLB/(445 + 2.857142/2) = 600 / (445 + 1.428571) = 1344 kHz
-  // по факту = 1.34542 МГц, значит нужно убавить 1420 Гц: 1344000 - 1420 = 1'342'580
-  clockgen.setupMultisynth(1, SI5351_PLL_B, 445, 3.8014866898, 2); // PLLB/(445 + 3.8014866898/2) = 600 / (445 + 1.900743) = 1'342'580 Hz
-  // по факту = 1.34392 МГц
+  clockgen.setupMultisynth(1, SI5351_PLL_A, 667, 1, 2); // PLLA/(667 + 1/2) = 897.12 / 667.5 = 1.344 MHz
+  // по факту = 
 
   /* Enable the clocks */
   clockgen.enableOutputs(true);
